@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [[ ! "$1" ]]; then
+
+    TMPDIR=/tmp
+    cd "$TMPDIR"
+
+    echo With the cursor, select the Image to decode
+    
+    #Screenshot tool
+    import qrcode.png
+
+    #Reading QR Code image
+    echo Image size: $(identify -format '%w' qrcode.png)x$(identify -format '%h' qrcode.png)
+    zbarimg -q qrcode.png 
+
+    #Deleting QR Code image
+    rm qrcode.png
+else
+    #Generate QRCode
+    qrencode --micro 2 --type UTF8 "$1"
+fi
